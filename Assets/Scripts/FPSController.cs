@@ -6,6 +6,7 @@ public class FPSController : MonoBehaviour
 {
     [Header("Movement")]
     public float moveSpeed = 5f;
+    public float sprintSpeed = 10f;
     public float jumpHeight = 1.5f;
     public float gravity = -9.81f;
 
@@ -22,6 +23,7 @@ public class FPSController : MonoBehaviour
     private Vector3 velocity;
 
     private float xRotation = 0f;
+    private bool isSprint = false;
 
     private void Awake()
     {
@@ -40,6 +42,9 @@ public class FPSController : MonoBehaviour
         inputActions.Player.Look.canceled += _ => lookInput = Vector2.zero;
 
         inputActions.Player.Jump.performed += Jump;
+
+        inputActions.Player.Sprint.performed += _ => isSprint = true;
+        inputActions.Player.Sprint.canceled += _ => isSprint = false;
     }
 
     private void OnDisable()
@@ -63,7 +68,7 @@ public class FPSController : MonoBehaviour
             transform.right * moveInput.x +
             transform.forward * moveInput.y;
 
-        controller.Move(move * moveSpeed * Time.deltaTime);
+        controller.Move(move * (isSprint ? sprintSpeed : moveSpeed) * Time.deltaTime);
     }
 
     private void Look()

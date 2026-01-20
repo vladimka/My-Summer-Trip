@@ -14,6 +14,7 @@ public class InteractionController : MonoBehaviour
     private PlayerInputActions input;
     private Interactable currentInteractable;
     private PickupInteractable heldItem;
+    private CarInteractable drivableCar;
 
     private void Awake()
     {
@@ -37,6 +38,9 @@ public class InteractionController : MonoBehaviour
             return;
 
         if (heldItem != null)
+            return;
+
+        if(drivableCar != null)
             return;
         
         CheckForInteractable();
@@ -74,10 +78,22 @@ public class InteractionController : MonoBehaviour
             return;
         }
 
+        if(drivableCar != null)
+        {
+            drivableCar.Interact(gameObject);
+            drivableCar = null;
+            return;
+        }
+
         if (currentInteractable is PickupInteractable pickup)
         {
             pickup.Interact(gameObject);
             heldItem = pickup;
+        }
+        else if(currentInteractable is CarInteractable car)
+        {
+            car.Interact(gameObject);
+            drivableCar = car;
         }
         else if (currentInteractable != null)
         {
