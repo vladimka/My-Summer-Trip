@@ -10,7 +10,6 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        // Singleton
         if (Instance != null && Instance != this)
         {
             Destroy(gameObject);
@@ -29,9 +28,9 @@ public class GameManager : MonoBehaviour
         inputActions.UI.Pause.performed += ctx => TogglePause();
     }
 
-    private void OnDisable(){
-        inputActions.UI.Disable();
-    }
+    // private void OnDisable(){
+    //     inputActions.UI.Disable();
+    // }
 
     private void Start()
     {

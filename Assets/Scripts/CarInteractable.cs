@@ -42,7 +42,9 @@ public class CarInteractable : Interactable
 
     public void LeaveCar()
     {
-        GameObject.FindGameObjectWithTag("Player").transform.position = LeavePoint.transform.localPosition;
+        FindFirstObjectByType<CharacterController>().enabled = false;
+        GameObject.FindGameObjectWithTag("Player").transform.position = LeavePoint.transform.position;
+        FindFirstObjectByType<CharacterController>().enabled = true;
         playerCamera.enabled = true;
         carCamera.enabled = false;
         FindFirstObjectByType<SCC_InputProcessor>().enabled = false;
@@ -50,7 +52,5 @@ public class CarInteractable : Interactable
         playerCamera.GetComponent<AudioListener>().enabled = true;
         carCamera.GetComponent<AudioListener>().enabled = false;
         inCar = false;
-        Debug.Log($"Player Position: {GameObject.FindGameObjectWithTag("Player").transform.position}");
-        Debug.Log($"Leave point Position: {LeavePoint.transform.localPosition}");
     }
 }
