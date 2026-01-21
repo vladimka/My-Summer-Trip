@@ -370,7 +370,7 @@ MonoBehaviour:
   prompt: Car
   playerCamera: {fileID: 0}
   carCamera: {fileID: 0}
-  LeavePoint: {fileID: 0}
+  LeavePoint: {fileID: 4459595878204524093}
 --- !u!1 &2671978861238885299
 GameObject:
   m_ObjectHideFlags: 0

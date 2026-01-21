@@ -3,23 +3,57 @@ using UnityEngine.SceneManagement;
 
 public class PauseMenuController : MonoBehaviour
 {
+    private UIInputActions uiInputActions;
     public Canvas pauseMenu;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public bool IsPaused { get; private set; }
+
+    void OnEnable()
     {
-        pauseMenu.enabled = false;
+        uiInputActions = new UIInputActions();
+        uiInputActions.UI.Enable();
+        uiInputActions.UI.Pause.performed += _ => TogglePause();
     }
 
-    // Update is called once per frame
+    void Start()
+    {
+        ResumeGame();
+    }
     void Update()
     {
-        if(GameManager.Instance.IsPaused)
+        if(IsPaused)
             pauseMenu.enabled = true;
         else
             pauseMenu.enabled = false;
     }
 
-    // ===== EXIT =====
+    public void TogglePause()
+    {
+        Debug.Log($"Pause Toggled: {IsPaused}");
+        if (IsPaused)
+            ResumeGame();
+        else
+            PauseGame();
+    }
+
+    public void PauseGame()
+    {
+        Time.timeScale = 0f;
+        IsPaused = true;
+
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+        pauseMenu.enabled = true;
+    }
+
+    public void ResumeGame()
+    {
+        Time.timeScale = 1f;
+        IsPaused = false;
+
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+        pauseMenu.enabled = false;
+    }
 
     public void QuitGame()
     {

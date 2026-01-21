@@ -34,7 +34,7 @@ public class InteractionController : MonoBehaviour
 
     private void Update()
     {
-        if(GameManager.Instance.IsPaused)
+        if(FindFirstObjectByType<PauseMenuController>().IsPaused)
             return;
 
         if (heldItem != null)
@@ -68,7 +68,7 @@ public class InteractionController : MonoBehaviour
 
     private void TryInteract()
     {
-        if(GameManager.Instance.IsPaused)
+        if(FindFirstObjectByType<PauseMenuController>().IsPaused)
             return;
 
         if (heldItem != null)
